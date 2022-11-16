@@ -1,6 +1,6 @@
 import BN from 'bn.js';
 import { MaxUint256, SupportedChainId } from '../../constants';
-import { Ether } from '../ethers';
+import { Ether } from '../ether';
 import { Token } from '../token';
 import { TokenAmount } from './tokenAmount';
 import { Percent } from './percent';
