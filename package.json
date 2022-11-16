@@ -1,0 +1,60 @@
+{
+  "name": "@starkdefi/core-sdk",
+  "author": {
+    "name": "StarkDefi Labs",
+    "url": "https://starkdefi.com"
+  },
+  "description": "SDK for building StarkDefi applications",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Starkdefi/core-sdk"
+  },
+  "keywords": [
+    "StarkDefi",
+    "Starknet"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "prepublishOnly": "tsdx build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "module": "dist/core-sdk.esm.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "big.js": "^6.2.1",
+    "decimal.js-light": "^2.5.1",
+    "starknet": "^4.9.0",
+    "tiny-invariant": "^1.3.1",
+    "toformat": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.1.6",
+    "@types/jest": "^29.2.3",
+    "tsdx": "^0.14.1"
+  }
+}
