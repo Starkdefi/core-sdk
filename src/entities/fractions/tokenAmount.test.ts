@@ -6,7 +6,7 @@ import { TokenAmount } from './tokenAmount';
 import { Percent } from './percent';
 
 describe('TokenAmount', () => {
-  const ADDRESS_ONE = '0x0000000000000000000000000000000000000001';
+  const ADDRESS_ONE = '0x0000000000000000000000000000000000000000000000000000000000000001';
 
   describe('constructor', () => {
     it('works', () => {
