@@ -1,5 +1,5 @@
 import { SupportedChainId } from '../../constants';
-import { Token } from '../token';
+import { Token } from '../index';
 import { TokenAmount } from './tokenAmount';
 import { Price } from './price';
 
