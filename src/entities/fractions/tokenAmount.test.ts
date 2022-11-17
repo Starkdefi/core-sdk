@@ -6,7 +6,8 @@ import { TokenAmount } from './tokenAmount';
 import { Percent } from './percent';
 
 describe('TokenAmount', () => {
-  const ADDRESS_ONE = '0x0000000000000000000000000000000000000000000000000000000000000001';
+  const ADDRESS_ONE =
+    '0x0000000000000000000000000000000000000000000000000000000000000001';
 
   describe('constructor', () => {
     it('works', () => {
@@ -42,7 +43,7 @@ describe('TokenAmount', () => {
       new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18),
       MaxUint256
     );
-    expect(amount.quotient).toEqual(MaxUint256);
+    expect(amount.quotient.eq(MaxUint256)).toBeTruthy();
   });
   it('token amount cannot exceed max uint256', () => {
     expect(() =>

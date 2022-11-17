@@ -56,5 +56,8 @@
     "@types/big.js": "^6.1.6",
     "@types/jest": "^29.2.3",
     "tsdx": "^0.14.1"
+  },
+  "jest": {
+    "verbose": false
   }
 }

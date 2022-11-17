@@ -21,7 +21,6 @@ describe('#sqrt', () => {
   });
 
   it('correct for MaxUint256', () => {
-    console.log(sqrt(MaxUint256))
     expect(sqrt(MaxUint256)).toEqual(
       new BN('340282366920938463463374607431768211455')
     );

@@ -24,7 +24,7 @@ export class Token extends BaseToken {
    * @param decimals {@link BaseCurrency#decimals}
    * @param symbol {@link BaseCurrency#symbol}
    * @param name {@link BaseCurrency#name}
-   * @param bypassChecksum If true it only checks for length === 42, startsWith 0x and contains only hex characters
+   * @param bypassChecksum If true it only checks for length === 66, startsWith 0x and contains only hex characters
    */
   public constructor(
     chainId: SupportedChainId,
