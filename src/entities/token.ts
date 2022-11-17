@@ -1,21 +1,21 @@
-import invariant from 'tiny-invariant'
-import { validateAndParseAddress } from 'starknet'
-import { BaseToken } from './baseToken'
-import { Currency } from './currency'
-import { checkValidAddress } from '../utils'
-import { SupportedChainId } from '../constants'
+import invariant from 'tiny-invariant';
+import { validateAndParseAddress } from 'starknet';
+import { BaseToken } from './baseToken';
+import { Currency } from './currency';
+import { checkValidAddress } from '../utils';
+import { SupportedChainId } from '../constants';
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends BaseToken {
-  public readonly isNative: false = false
-  public readonly isToken: true = true
+  public readonly isNative: false = false;
+  public readonly isToken: true = true;
 
   /**
    * The contract address on the chain on which this token lives
    */
-  public readonly address: string
+  public readonly address: string;
 
   /**
    *
@@ -34,11 +34,11 @@ export class Token extends BaseToken {
     name?: string,
     bypassChecksum?: boolean
   ) {
-    super(chainId, decimals, symbol, name)
+    super(chainId, decimals, symbol, name);
     if (bypassChecksum) {
-      this.address = checkValidAddress(address)
+      this.address = checkValidAddress(address);
     } else {
-      this.address = validateAndParseAddress(address)
+      this.address = validateAndParseAddress(address);
     }
   }
 
@@ -47,7 +47,11 @@ export class Token extends BaseToken {
    * @param other other token to compare
    */
   public equals(other: Currency): boolean {
-    return other.isToken && this.chainId === other.chainId && this.address === other.address
+    return (
+      other.isToken &&
+      this.chainId === other.chainId &&
+      this.address === other.address
+    );
   }
 
   /**
@@ -57,15 +61,15 @@ export class Token extends BaseToken {
    * @throws if the tokens are on different chains
    */
   public sortsBefore(other: Token): boolean {
-    invariant(this.chainId === other.chainId, 'CHAIN_IDS')
-    invariant(this.address !== other.address, 'ADDRESSES')
-    return this.address.toLowerCase() < other.address.toLowerCase()
+    invariant(this.chainId === other.chainId, 'CHAIN_IDS');
+    invariant(this.address !== other.address, 'ADDRESSES');
+    return this.address.toLowerCase() < other.address.toLowerCase();
   }
 
   /**
    * Return this token, which does not need to be wrapped
    */
   public get wrapped(): Token {
-    return this
+    return this;
   }
 }

@@ -2,8 +2,10 @@ import { SupportedChainId } from '../constants';
 import { Token } from './index';
 
 describe('Token', () => {
-  const ADDRESS_ONE = '0x0000000000000000000000000000000000000000000000000000000000000001';
-  const ADDRESS_TWO = '0x0000000000000000000000000000000000000000000000000000000000000002';
+  const ADDRESS_ONE =
+    '0x0000000000000000000000000000000000000000000000000000000000000001';
+  const ADDRESS_TWO =
+    '0x0000000000000000000000000000000000000000000000000000000000000002';
 
   describe('#constructor', () => {
     it('fails with invalid address', () => {
@@ -14,9 +16,7 @@ describe('Token', () => {
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18
           ).address
-      ).toThrow(
-        'Invalid character'
-      );
+      ).toThrow('Invalid character');
     });
     it('fails with negative decimals', () => {
       expect(
@@ -61,9 +61,7 @@ describe('Token', () => {
             undefined,
             bypassChecksum
           ).address
-      ).toThrow(
-        'Invalid Address Format'
-      );
+      ).toThrow('Invalid Address Format');
     });
     it('fails with negative decimals', () => {
       expect(

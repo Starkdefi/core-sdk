@@ -148,22 +148,22 @@ describe('Fraction', () => {
           .equalTo(new Fraction(new BN(12), new BN(40)))
       ).toBeTruthy();
       expect(
-        new Fraction(new BN(1), new BN(3)).divide(
-          new Fraction(new BN(4), new BN(12))
-        ).equalTo(new Fraction(new BN(12), new BN(12)))
+        new Fraction(new BN(1), new BN(3))
+          .divide(new Fraction(new BN(4), new BN(12)))
+          .equalTo(new Fraction(new BN(12), new BN(12)))
       ).toBeTruthy();
       expect(
-        new Fraction(new BN(5), new BN(12)).divide(
-          new Fraction(new BN(4), new BN(12))
-        ).equalTo(new Fraction(new BN(60), new BN(48)))
+        new Fraction(new BN(5), new BN(12))
+          .divide(new Fraction(new BN(4), new BN(12)))
+          .equalTo(new Fraction(new BN(60), new BN(48)))
       ).toBeTruthy();
     });
   });
   describe('#asFraction', () => {
     it('returns an equivalent but not the same reference fraction', () => {
-      const f = new Fraction(1, 2)
-      expect(f.asFraction).toEqual(f)
-      expect(f === f.asFraction).toEqual(false)
-    })
-  })
+      const f = new Fraction(1, 2);
+      expect(f.asFraction).toEqual(f);
+      expect(f === f.asFraction).toEqual(false);
+    });
+  });
 });

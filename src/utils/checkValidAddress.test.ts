@@ -24,9 +24,7 @@ describe('#checkValidAddress', () => {
       checkValidAddress(
         '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396ec9A'
       )
-    ).toThrow(
-      'Invalid Address Format'
-    );
+    ).toThrow('Invalid Address Format');
   });
 
   it('throws if it does not start with 0x', () => {
@@ -34,9 +32,7 @@ describe('#checkValidAddress', () => {
       checkValidAddress(
         '03e85bfbb8e2a42b7bead9e88e9a1b19dbccf661471061807292120462396543'
       )
-    ).toThrow(
-      'Invalid Address Format'
-    );
+    ).toThrow('Invalid Address Format');
   });
 
   it('throws if it is not a HEX string', () => {
@@ -44,8 +40,6 @@ describe('#checkValidAddress', () => {
       checkValidAddress(
         '0x03e85bfbb8e2a42b7bead9e88e9a1b19dbccf66147106180729212046239654x'
       )
-    ).toThrow(
-      'Invalid Address Format'
-    );
+    ).toThrow('Invalid Address Format');
   });
 });

@@ -1,5 +1,5 @@
-import { SupportedChainId } from '../constants'
-import { Token } from './token'
+import { SupportedChainId } from '../constants';
+import { Token } from './token';
 
 /**
  * Known StarkNet ETH implementation addresses, used in our implementation of Ether#wrapped
@@ -19,4 +19,4 @@ export const WETH: { [chainId: string]: Token } = {
     'WETH',
     'Wrapped Ether'
   ),
-}
+};
