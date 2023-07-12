@@ -1,22 +1,29 @@
-import { SupportedChainId } from '../constants';
+import { constants } from 'starknet';
 import { Token } from './token';
 
 /**
- * Known StarkNet ETH implementation addresses, used in our implementation of Ether#wrapped
+ * Known StarkNet ETH implementation addresses
  */
-export const WETH: { [chainId: string]: Token } = {
-  [SupportedChainId.MAINNET]: new Token(
-    SupportedChainId.MAINNET,
+export const ETH: { [chainId: string]: Token } = {
+  [constants.StarknetChainId.SN_MAIN]: new Token(
+    constants.StarknetChainId.SN_MAIN,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     18,
-    'WETH',
-    'Wrapped Ether'
+    'ETH',
+    'Ether'
   ),
-  [SupportedChainId.GOERLI]: new Token(
-    SupportedChainId.GOERLI,
+  [constants.StarknetChainId.SN_GOERLI]: new Token(
+    constants.StarknetChainId.SN_GOERLI,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     18,
-    'WETH',
-    'Wrapped Ether'
+    'ETH',
+    'Ether'
+  ),
+  [constants.StarknetChainId.SN_GOERLI2]: new Token(
+    constants.StarknetChainId.SN_GOERLI2,
+    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
+    18,
+    'ETH',
+    'Ether'
   ),
 };

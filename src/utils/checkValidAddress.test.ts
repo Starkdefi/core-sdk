@@ -17,6 +17,14 @@ describe('#checkValidAddress', () => {
     ).toEqual(
       '0x4998c461a56ccdd803318fad04abbc87fab581471924696f1bd43f1e108a45b'
     );
+
+    expect(
+      checkValidAddress(
+        '0x0025641972110C404d7292955426965f039476FfBA7aDAf5Da1BAb899a6610D3'
+      )
+    ).toEqual(
+      '0x0025641972110C404d7292955426965f039476FfBA7aDAf5Da1BAb899a6610D3'
+    );
   });
 
   it('throws if length < 64', () => {

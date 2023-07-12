@@ -1,4 +1,4 @@
-import { SupportedChainId } from '../constants';
+import { constants } from 'starknet';
 import { Token } from './index';
 
 describe('Token', () => {
@@ -12,25 +12,33 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            SupportedChainId.GOERLI,
+            constants.StarknetChainId.SN_GOERLI,
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18
           ).address
-      ).toThrow('Invalid character');
+      ).toThrow(
+        'Cannot convert 0xhello00000000000000000000000000000000000000000000000000000000002 to a BigInt'
+      );
     });
     it('fails with negative decimals', () => {
       expect(
-        () => new Token(SupportedChainId.GOERLI, ADDRESS_ONE, -1).address
+        () =>
+          new Token(constants.StarknetChainId.SN_GOERLI, ADDRESS_ONE, -1)
+            .address
       ).toThrow('DECIMALS');
     });
     it('fails with 256 decimals', () => {
       expect(
-        () => new Token(SupportedChainId.GOERLI, ADDRESS_ONE, 256).address
+        () =>
+          new Token(constants.StarknetChainId.SN_GOERLI, ADDRESS_ONE, 256)
+            .address
       ).toThrow('DECIMALS');
     });
     it('fails with non-integer decimals', () => {
       expect(
-        () => new Token(SupportedChainId.GOERLI, ADDRESS_ONE, 1.5).address
+        () =>
+          new Token(constants.StarknetChainId.SN_GOERLI, ADDRESS_ONE, 1.5)
+            .address
       ).toThrow('DECIMALS');
     });
   });
@@ -41,7 +49,7 @@ describe('Token', () => {
     it('creates the token with a valid address', () => {
       expect(
         new Token(
-          SupportedChainId.GOERLI,
+          constants.StarknetChainId.SN_GOERLI,
           ADDRESS_TWO,
           18,
           undefined,
@@ -54,7 +62,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            SupportedChainId.GOERLI,
+            constants.StarknetChainId.SN_GOERLI,
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18,
             undefined,
@@ -67,7 +75,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            SupportedChainId.GOERLI,
+            constants.StarknetChainId.SN_GOERLI,
             ADDRESS_ONE,
             -1,
             undefined,
@@ -80,7 +88,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            SupportedChainId.GOERLI,
+            constants.StarknetChainId.SN_GOERLI,
             ADDRESS_ONE,
             256,
             undefined,
@@ -93,7 +101,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            SupportedChainId.GOERLI,
+            constants.StarknetChainId.SN_GOERLI,
             ADDRESS_ONE,
             1.5,
             undefined,
@@ -107,51 +115,55 @@ describe('Token', () => {
   describe('#equals', () => {
     it('fails if address differs', () => {
       expect(
-        new Token(SupportedChainId.GOERLI, ADDRESS_ONE, 18).equals(
-          new Token(SupportedChainId.MAINNET, ADDRESS_TWO, 18)
+        new Token(constants.StarknetChainId.SN_GOERLI, ADDRESS_ONE, 18).equals(
+          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_TWO, 18)
         )
       ).toBe(false);
     });
 
     it('false if chain id differs', () => {
       expect(
-        new Token(SupportedChainId.GOERLI, ADDRESS_ONE, 18).equals(
-          new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18)
+        new Token(constants.StarknetChainId.SN_GOERLI, ADDRESS_ONE, 18).equals(
+          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
         )
       ).toBe(false);
     });
 
     it('true if only decimals differs', () => {
       expect(
-        new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 9).equals(
-          new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18)
+        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 9).equals(
+          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
         )
       ).toBe(true);
     });
 
     it('true if address is the same', () => {
       expect(
-        new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18).equals(
-          new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18)
+        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18).equals(
+          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
         )
       ).toBe(true);
     });
 
     it('true on reference equality', () => {
-      const token = new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18);
+      const token = new Token(
+        constants.StarknetChainId.SN_MAIN,
+        ADDRESS_ONE,
+        18
+      );
       expect(token.equals(token)).toBe(true);
     });
 
     it('true even if name/symbol/decimals differ', () => {
       const tokenA = new Token(
-        SupportedChainId.MAINNET,
+        constants.StarknetChainId.SN_MAIN,
         ADDRESS_ONE,
         9,
         'abc',
         'def'
       );
       const tokenB = new Token(
-        SupportedChainId.MAINNET,
+        constants.StarknetChainId.SN_MAIN,
         ADDRESS_ONE,
         18,
         'ghi',

@@ -1,4 +1,4 @@
-import { SupportedChainId } from '../constants';
+import { constants } from 'starknet';
 import { Ether, Token } from './index';
 
 describe('Currency', () => {
@@ -7,19 +7,19 @@ describe('Currency', () => {
   const ADDRESS_ONE =
     '0x0000000000000000000000000000000000000000000000000000000000000001';
 
-  const t0 = new Token(SupportedChainId.MAINNET, ADDRESS_ZERO, 18);
-  const t1 = new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18);
+  const t0 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ZERO, 18);
+  const t1 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18);
 
   describe('#equals', () => {
     it('ether on same chains is ether', () => {
       expect(
-        Ether.onChain(SupportedChainId.MAINNET).equals(
-          Ether.onChain(SupportedChainId.MAINNET)
+        Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(
+          Ether.onChain(constants.StarknetChainId.SN_MAIN)
         )
       );
     });
     it('ether is not token0', () => {
-      expect(Ether.onChain(SupportedChainId.MAINNET).equals(t0)).toStrictEqual(
+      expect(Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(t0)).toStrictEqual(
         false
       );
     });
@@ -33,7 +33,7 @@ describe('Currency', () => {
       expect(
         t0.equals(
           new Token(
-            SupportedChainId.MAINNET,
+            constants.StarknetChainId.SN_MAIN,
             ADDRESS_ZERO,
             18,
             'symbol',

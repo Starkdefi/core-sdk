@@ -1,7 +1,8 @@
 import invariant from 'tiny-invariant';
-import { isSupportedChainId, SupportedChainId } from '../constants';
+import { isSupportedChainId } from '../constants';
 import { Currency } from './currency';
 import { Token } from './token';
+import { constants } from 'starknet';
 
 /**
  * A currency is any fungible financial instrument, including Ether, all ERC20 tokens, and other chain-native currencies
@@ -19,7 +20,7 @@ export abstract class BaseToken {
   /**
    * The chain ID on which this currency resides
    */
-  public readonly chainId: SupportedChainId;
+  public readonly chainId: constants.StarknetChainId;
   /**
    * The decimals used in representing currency amounts
    */
@@ -41,7 +42,7 @@ export abstract class BaseToken {
    * @param name of the currency
    */
   protected constructor(
-    chainId: SupportedChainId,
+    chainId: constants.StarknetChainId,
     decimals: number,
     symbol?: string,
     name?: string

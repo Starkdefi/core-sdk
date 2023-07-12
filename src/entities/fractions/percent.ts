@@ -1,8 +1,7 @@
-import BN from 'bn.js';
 import { BigNumberish, Rounding } from '../../constants';
 import { Fraction } from './fraction';
 
-const ONE_HUNDRED = new Fraction(new BN(100));
+const ONE_HUNDRED = new Fraction(BigInt(100));
 
 /**
  * Converts a fraction to a percent
@@ -16,7 +15,7 @@ export class Percent extends Fraction {
   /**
    * This boolean prevents a fraction from being interpreted as a Percent
    */
-  public readonly isPercent: true = true;
+  public readonly isPercent = true as const;
 
   add(other: Fraction | BigNumberish): Percent {
     return toPercent(super.add(other));

@@ -1,5 +1,4 @@
 import invariant from 'tiny-invariant';
-import BN from 'bn.js';
 import { Token } from '../token';
 import { Fraction } from './fraction';
 import _Big from 'big.js';
@@ -11,7 +10,7 @@ const Big = toFormat(_Big);
 
 export class TokenAmount<T extends Currency> extends Fraction {
   public readonly token: T;
-  public readonly decimalScale: BN;
+  public readonly decimalScale: bigint;
 
   /**
    * Returns a new token amount instance from the unitless amount of token, i.e. the raw amount
@@ -45,9 +44,9 @@ export class TokenAmount<T extends Currency> extends Fraction {
     denominator?: BigNumberish
   ) {
     super(numerator, denominator);
-    invariant(this.quotient.lte(MaxUint256), 'AMOUNT');
+    invariant(this.quotient <= MaxUint256, 'AMOUNT');
     this.token = token;
-    this.decimalScale = new BN(10).pow(new BN(token.decimals));
+    this.decimalScale = BigInt(10 ** token.decimals);
   }
 
   public add(other: TokenAmount<T>): TokenAmount<T> {

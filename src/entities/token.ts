@@ -1,16 +1,15 @@
 import invariant from 'tiny-invariant';
-import { validateAndParseAddress } from 'starknet';
+import { constants, validateAndParseAddress } from 'starknet';
 import { BaseToken } from './baseToken';
 import { Currency } from './currency';
 import { checkValidAddress } from '../utils';
-import { SupportedChainId } from '../constants';
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
 export class Token extends BaseToken {
-  public readonly isNative: false = false;
-  public readonly isToken: true = true;
+  public readonly isNative = false as const;
+  public readonly isToken = true as const;
 
   /**
    * The contract address on the chain on which this token lives
@@ -27,7 +26,7 @@ export class Token extends BaseToken {
    * @param bypassChecksum If true it only checks for length === 66, startsWith 0x and contains only hex characters
    */
   public constructor(
-    chainId: SupportedChainId,
+    chainId: constants.StarknetChainId,
     address: string,
     decimals: number,
     symbol?: string,
@@ -69,7 +68,7 @@ export class Token extends BaseToken {
   /**
    * Return this token, which does not need to be wrapped
    */
-  public get wrapped(): Token {
+  public get wrapped(): this {
     return this;
   }
 }

@@ -1,6 +1,4 @@
-import BN from 'bn.js';
 import invariant from 'tiny-invariant';
-
 import { BigNumberish, Rounding } from '../../constants';
 import { Currency } from '../currency';
 import { Fraction } from './fraction';
@@ -49,8 +47,8 @@ export class Price<
     this.baseCurrency = baseCurrency;
     this.quoteCurrency = quoteCurrency;
     this.scalar = new Fraction(
-      new BN(10).pow(new BN(baseCurrency.decimals)),
-      new BN(10).pow(new BN(quoteCurrency.decimals))
+      BigInt(10**baseCurrency.decimals),
+      BigInt(10**quoteCurrency.decimals)
     );
   }
 

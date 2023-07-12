@@ -1,6 +1,6 @@
-import { SupportedChainId } from '../constants';
 import { TokenAmount, Ether, Percent, Price, Token } from '../entities';
 import { computePriceImpact } from './computePriceImpact';
+import {constants} from 'starknet'
 
 describe('#computePriceImpact', () => {
   const ADDRESS_ZERO =
@@ -8,14 +8,14 @@ describe('#computePriceImpact', () => {
   const ADDRESS_ONE =
     '0x0000000000000000000000000000000000000000000000000000000000000001';
 
-  const t0 = new Token(SupportedChainId.MAINNET, ADDRESS_ZERO, 18);
-  const t1 = new Token(SupportedChainId.MAINNET, ADDRESS_ONE, 18);
+  const t0 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ZERO, 18);
+  const t1 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18);
 
   it('is correct for zero', () => {
     expect(
       computePriceImpact(
-        new Price(Ether.onChain(SupportedChainId.MAINNET), t0, 10, 100),
-        TokenAmount.fromRawAmount(Ether.onChain(SupportedChainId.MAINNET), 10),
+        new Price(Ether.onChain(constants.StarknetChainId.SN_MAIN), t0, 10, 100),
+        TokenAmount.fromRawAmount(Ether.onChain(constants.StarknetChainId.SN_MAIN), 10),
         TokenAmount.fromRawAmount(t0, 100)
       ).equalTo(new Percent(0, 10000))
     ).toBeTruthy();
