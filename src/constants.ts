@@ -3,7 +3,9 @@ import { constants, BigNumberish as _bigNumberis } from 'starknet';
 export function isSupportedChainId(
   chainId: string
 ): chainId is constants.StarknetChainId {
-  return Object.values(constants.StarknetChainId).includes(chainId as constants.StarknetChainId);
+  return Object.values(constants.StarknetChainId).includes(
+    chainId as constants.StarknetChainId
+  );
 }
 
 export declare type BigNumberish = _bigNumberis;

@@ -47,8 +47,8 @@ export class Price<
     this.baseCurrency = baseCurrency;
     this.quoteCurrency = quoteCurrency;
     this.scalar = new Fraction(
-      BigInt(10**baseCurrency.decimals),
-      BigInt(10**quoteCurrency.decimals)
+      BigInt(10 ** baseCurrency.decimals),
+      BigInt(10 ** quoteCurrency.decimals)
     );
   }
 
