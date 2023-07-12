@@ -19,9 +19,9 @@ describe('Currency', () => {
       );
     });
     it('ether is not token0', () => {
-      expect(Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(t0)).toStrictEqual(
-        false
-      );
+      expect(
+        Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(t0)
+      ).toStrictEqual(false);
     });
     it('token1 is not token0', () => {
       expect(t1.equals(t0)).toStrictEqual(false);
