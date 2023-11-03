@@ -2,7 +2,7 @@ import { constants } from 'starknet';
 import { Token } from './token';
 
 /**
- * Known StarkNet ETH implementation addresses
+ * Known Starknet ETH implementation addresses
  */
 export const ETH: { [chainId: string]: Token } = {
   [constants.StarknetChainId.SN_MAIN]: new Token(
@@ -14,13 +14,6 @@ export const ETH: { [chainId: string]: Token } = {
   ),
   [constants.StarknetChainId.SN_GOERLI]: new Token(
     constants.StarknetChainId.SN_GOERLI,
-    '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
-    18,
-    'ETH',
-    'Ether'
-  ),
-  [constants.StarknetChainId.SN_GOERLI2]: new Token(
-    constants.StarknetChainId.SN_GOERLI2,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     18,
     'ETH',

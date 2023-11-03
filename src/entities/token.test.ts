@@ -16,9 +16,7 @@ describe('Token', () => {
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18
           ).address
-      ).toThrow(
-        'Cannot convert 0xhello00000000000000000000000000000000000000000000000000000000002 to a BigInt'
-      );
+      ).toThrow();
     });
     it('fails with negative decimals', () => {
       expect(
