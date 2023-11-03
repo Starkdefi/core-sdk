@@ -11,7 +11,9 @@ describe('Ether', () => {
   it('static constructor uses cache', () => {
     const etherMain = Ether.onChain(constants.StarknetChainId.SN_MAIN);
     expect(
-      Number.isNaN(etherMain) ? false : etherMain === Ether.onChain(constants.StarknetChainId.SN_MAIN)
+      Number.isNaN(etherMain)
+        ? false
+        : etherMain === Ether.onChain(constants.StarknetChainId.SN_MAIN)
     ).toEqual(true);
   });
   it('caches once per chain ID', () => {
