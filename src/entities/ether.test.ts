@@ -19,13 +19,13 @@ describe('Ether', () => {
   it('caches once per chain ID', () => {
     expect(
       Ether.onChain(constants.StarknetChainId.SN_MAIN) !==
-        Ether.onChain(constants.StarknetChainId.SN_GOERLI)
+        Ether.onChain(constants.StarknetChainId.SN_SEPOLIA)
     ).toEqual(true);
   });
   it('#equals returns false for diff chains', () => {
     expect(
       Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(
-        Ether.onChain(constants.StarknetChainId.SN_GOERLI)
+        Ether.onChain(constants.StarknetChainId.SN_SEPOLIA)
       )
     ).toEqual(false);
   });
