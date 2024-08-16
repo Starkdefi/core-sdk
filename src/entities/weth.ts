@@ -12,8 +12,8 @@ export const ETH: { [chainId: string]: Token } = {
     'ETH',
     'Ether'
   ),
-  [constants.StarknetChainId.SN_GOERLI]: new Token(
-    constants.StarknetChainId.SN_GOERLI,
+  [constants.StarknetChainId.SN_SEPOLIA]: new Token(
+    constants.StarknetChainId.SN_SEPOLIA,
     '0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7',
     18,
     'ETH',
