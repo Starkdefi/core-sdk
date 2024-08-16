@@ -18,5 +18,5 @@ export const ETH: { [chainId: string]: Token } = {
     18,
     'ETH',
     'Ether'
-  )
+  ),
 };
