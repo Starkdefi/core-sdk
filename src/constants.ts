@@ -7,12 +7,6 @@ export function isSupportedChainId(chain: Chain) {
 
 export declare type BigNumberish = _bigNumberis;
 
-export enum Rounding {
-  ROUND_DOWN,
-  ROUND_HALF_UP,
-  ROUND_UP,
-}
-
 export const MaxUint256 = BigInt(
   '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
 );
