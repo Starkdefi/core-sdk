@@ -1,11 +1,8 @@
-import { constants, BigNumberish as _bigNumberis } from 'starknet';
+import { BigNumberish as _bigNumberis } from 'starknet';
+import { Chain, mainnet, sepolia } from '@starknet-react/chains';
 
-export function isSupportedChainId(
-  chainId: string
-): chainId is constants.StarknetChainId {
-  return Object.values(constants.StarknetChainId).includes(
-    chainId as constants.StarknetChainId
-  );
+export function isSupportedChainId(chain: Chain) {
+  return [mainnet, sepolia].some(c => c.id === chain.id);
 }
 
 export declare type BigNumberish = _bigNumberis;
