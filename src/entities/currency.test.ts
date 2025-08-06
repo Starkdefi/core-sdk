@@ -12,16 +12,10 @@ describe('Currency', () => {
 
   describe('#equals', () => {
     it('ether on same chains is ether', () => {
-      expect(
-        Ether.onChain(mainnet).equals(
-          Ether.onChain(mainnet)
-        )
-      );
+      expect(Ether.onChain(mainnet).equals(Ether.onChain(mainnet)));
     });
     it('ether is not token0', () => {
-      expect(
-        Ether.onChain(mainnet).equals(t0)
-      ).toStrictEqual(false);
+      expect(Ether.onChain(mainnet).equals(t0)).toStrictEqual(false);
     });
     it('token1 is not token0', () => {
       expect(t1.equals(t0)).toStrictEqual(false);
@@ -31,15 +25,7 @@ describe('Currency', () => {
     });
     it('token0 is equal to another token0', () => {
       expect(
-        t0.equals(
-          new Token(
-            mainnet,
-            ADDRESS_ZERO,
-            18,
-            'symbol',
-            'name'
-          )
-        )
+        t0.equals(new Token(mainnet, ADDRESS_ZERO, 18, 'symbol', 'name'))
       ).toStrictEqual(true);
     });
   });

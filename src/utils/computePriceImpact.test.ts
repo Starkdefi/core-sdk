@@ -14,16 +14,8 @@ describe('#computePriceImpact', () => {
   it('is correct for zero', () => {
     expect(
       computePriceImpact(
-        new Price(
-          Ether.onChain(mainnet),
-          t0,
-          10,
-          100
-        ),
-        TokenAmount.fromRawAmount(
-          Ether.onChain(mainnet),
-          10
-        ),
+        new Price(Ether.onChain(mainnet), t0, 10, 100),
+        TokenAmount.fromRawAmount(Ether.onChain(mainnet), 10),
         TokenAmount.fromRawAmount(t0, 100)
       ).equalTo(new Percent(0, 10000))
     ).toBeTruthy();

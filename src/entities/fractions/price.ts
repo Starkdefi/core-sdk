@@ -103,17 +103,11 @@ export class Price<
     return super.multiply(this.scalar);
   }
 
-  public toSignificant(
-    significantDigits: number = 6
-  ): string {
-    return this.adjustedForDecimals.toSignificant(
-      significantDigits
-    );
+  public toSignificant(significantDigits: number = 6): string {
+    return this.adjustedForDecimals.toSignificant(significantDigits);
   }
 
-  public toFixed(
-    decimalPlaces: number = 4
-  ): string {
+  public toFixed(decimalPlaces: number = 4): string {
     return this.adjustedForDecimals.toFixed(decimalPlaces);
   }
 }

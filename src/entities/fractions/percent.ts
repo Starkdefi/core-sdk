@@ -33,17 +33,11 @@ export class Percent extends Fraction {
     return toPercent(super.divide(other));
   }
 
-  public toSignificant(
-    significantDigits: number = 5,
-  ): string {
-    return super
-      .multiply(ONE_HUNDRED)
-      .toSignificant(significantDigits);
+  public toSignificant(significantDigits: number = 5): string {
+    return super.multiply(ONE_HUNDRED).toSignificant(significantDigits);
   }
 
-  public toFixed(
-    decimalPlaces: number = 2,
-  ): string {
+  public toFixed(decimalPlaces: number = 2): string {
     return super.multiply(ONE_HUNDRED).toFixed(decimalPlaces);
   }
 }

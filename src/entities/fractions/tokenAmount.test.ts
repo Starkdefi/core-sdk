@@ -11,11 +11,7 @@ describe('TokenAmount', () => {
 
   describe('constructor', () => {
     it('works', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        18
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 18);
       const amount = TokenAmount.fromRawAmount(token, 100);
       expect(amount.quotient).toEqual(BigInt(100));
     });
@@ -23,11 +19,7 @@ describe('TokenAmount', () => {
 
   describe('#quotient', () => {
     it('returns the amount after multiplication', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        18
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 18);
       const amount = TokenAmount.fromRawAmount(token, 100).multiply(
         new Percent(15, 100)
       );
@@ -37,14 +29,9 @@ describe('TokenAmount', () => {
 
   describe('#ether', () => {
     it('produces ether amount', () => {
-      const amount = TokenAmount.fromRawAmount(
-        Ether.onChain(mainnet),
-        100
-      );
+      const amount = TokenAmount.fromRawAmount(Ether.onChain(mainnet), 100);
       expect(amount.quotient).toEqual(BigInt(100));
-      expect(amount.token).toEqual(
-        Ether.onChain(mainnet)
-      );
+      expect(amount.token).toEqual(Ether.onChain(mainnet));
     });
   });
 
@@ -83,29 +70,17 @@ describe('TokenAmount', () => {
 
   describe('#toFixed', () => {
     it('throws for decimals > currency.decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 1000);
       expect(() => amount.toFixed(3)).toThrow('DECIMALS');
     });
     it('is correct for 0 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 123456);
       expect(amount.toFixed(0)).toEqual('123456');
     });
     it('is correct for 18 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        18
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 18);
       const amount = TokenAmount.fromRawAmount(token, 1e15);
       expect(amount.toFixed(9)).toEqual('0.001000000');
     });
@@ -113,29 +88,17 @@ describe('TokenAmount', () => {
 
   describe('#toSignificant', () => {
     it('does not throw for sig figs > currency.decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 1000);
       expect(amount.toSignificant(3)).toEqual('1000');
     });
     it('is correct for 0 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 123456);
       expect(amount.toSignificant(4)).toEqual('123400');
     });
     it('is correct for 18 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        18
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 18);
       const amount = TokenAmount.fromRawAmount(token, 1e15);
       expect(amount.toSignificant(9)).toEqual('0.001');
     });
@@ -143,29 +106,17 @@ describe('TokenAmount', () => {
 
   describe('#toExact', () => {
     it('does not throw for sig figs > currency.decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 1000);
       expect(amount.toExact()).toEqual('1000');
     });
     it('is correct for 0 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        0
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 0);
       const amount = TokenAmount.fromRawAmount(token, 123456);
       expect(amount.toExact()).toEqual('123456');
     });
     it('is correct for 18 decimals', () => {
-      const token = new Token(
-        mainnet,
-        ADDRESS_ONE,
-        18
-      );
+      const token = new Token(mainnet, ADDRESS_ONE, 18);
       const amount = TokenAmount.fromRawAmount(token, 123e13);
       expect(amount.toExact()).toEqual('0.00123');
     });

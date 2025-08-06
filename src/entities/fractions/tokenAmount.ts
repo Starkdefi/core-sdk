@@ -83,32 +83,24 @@ export class TokenAmount<T extends Currency> extends Fraction {
     );
   }
 
-  public toSignificant(
-    significantDigits: number = 6
-  ): string {
-    return super
-      .divide(this.decimalScale)
-      .toSignificant(significantDigits);
+  public toSignificant(significantDigits: number = 6): string {
+    return super.divide(this.decimalScale).toSignificant(significantDigits);
   }
 
-  public toFixed(
-    decimalPlaces: number = this.token.decimals
-  ): string {
+  public toFixed(decimalPlaces: number = this.token.decimals): string {
     invariant(decimalPlaces <= this.token.decimals, 'DECIMALS');
-    return super
-      .divide(this.decimalScale)
-      .toFixed(decimalPlaces);
+    return super.divide(this.decimalScale).toFixed(decimalPlaces);
   }
 
   public toExact(): string {
     const value = Number(this.quotient) / Number(this.decimalScale);
     let result = value.toFixed(this.token.decimals);
-    
+
     // Remove trailing zeros after decimal point
     if (result.includes('.')) {
       result = result.replace(/\.?0+$/, '');
     }
-    
+
     return result;
   }
 

@@ -121,23 +121,23 @@ export class Fraction {
     invariant(significantDigits > 0, `${significantDigits} is not positive.`);
 
     const quotient = Number(this.numerator) / Number(this.denominator);
-    
+
     if (quotient === 0) return '0';
-    
+
     // Calculate the magnitude of the number
     const magnitude = Math.floor(Math.log10(Math.abs(quotient)));
-    
+
     // For numbers >= 1, round to maintain significant digits
     if (quotient >= 1) {
       const factor = Math.pow(10, significantDigits - magnitude - 1);
       const rounded = Math.floor(quotient * factor) / factor;
       return rounded.toString();
     }
-    
+
     // For numbers < 1, handle decimal places more carefully
     const decimalPlaces = Math.max(0, significantDigits - magnitude - 1);
     let result = quotient.toFixed(decimalPlaces);
-    
+
     // Remove trailing zeros after decimal point but keep significant figures
     if (result.includes('.')) {
       // Count significant digits in the result
@@ -151,7 +151,7 @@ export class Fraction {
       // Remove trailing zeros
       result = result.replace(/0+$/, '').replace(/\.$/, '');
     }
-    
+
     return result;
   }
 

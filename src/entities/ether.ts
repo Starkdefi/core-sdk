@@ -9,11 +9,22 @@ import { Chain } from '@starknet-react/chains';
 export class Ether extends NativeToken {
   protected constructor(chain: Chain) {
     const nativeCurrency = chain.nativeCurrency;
-    super(chain, nativeCurrency.decimals, nativeCurrency.symbol, nativeCurrency.name);
+    super(
+      chain,
+      nativeCurrency.decimals,
+      nativeCurrency.symbol,
+      nativeCurrency.name
+    );
   }
 
   public get wrapped(): Token {
-    const eth = new Token(this.chain, this.chain.nativeCurrency.address, this.chain.nativeCurrency.decimals, this.chain.nativeCurrency.symbol, this.chain.nativeCurrency.name);
+    const eth = new Token(
+      this.chain,
+      this.chain.nativeCurrency.address,
+      this.chain.nativeCurrency.decimals,
+      this.chain.nativeCurrency.symbol,
+      this.chain.nativeCurrency.name
+    );
     invariant(!!eth, 'WRAPPED');
     return eth;
   }
