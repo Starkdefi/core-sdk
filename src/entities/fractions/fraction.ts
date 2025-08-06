@@ -1,24 +1,6 @@
 import invariant from 'tiny-invariant';
-import _Decimal from 'decimal.js-light';
-import _Big from 'big.js';
-import toFormat from 'toformat';
 
-import { BigNumberish, Rounding } from '../../constants';
-
-const Decimal = toFormat(_Decimal);
-const Big = toFormat(_Big);
-
-const toSignificantRounding = {
-  [Rounding.ROUND_DOWN]: Decimal.ROUND_DOWN,
-  [Rounding.ROUND_HALF_UP]: Decimal.ROUND_HALF_UP,
-  [Rounding.ROUND_UP]: Decimal.ROUND_UP,
-};
-
-const toFixedRounding = {
-  [Rounding.ROUND_DOWN]: _Big.roundDown,
-  [Rounding.ROUND_HALF_UP]: _Big.roundHalfUp,
-  [Rounding.ROUND_UP]: _Big.roundUp,
-};
+import { BigNumberish } from '../../constants';
 
 export class Fraction {
   public readonly numerator: bigint;
@@ -131,43 +113,57 @@ export class Fraction {
     );
   }
 
-  public toSignificant(
-    significantDigits: number,
-    format: object = { groupSeparator: '' },
-    rounding: Rounding = Rounding.ROUND_HALF_UP
-  ): string {
+  public toSignificant(significantDigits: number): string {
     invariant(
       Number.isInteger(significantDigits),
       `${significantDigits} is not an integer.`
     );
     invariant(significantDigits > 0, `${significantDigits} is not positive.`);
 
-    Decimal.set({
-      precision: significantDigits + 1,
-      rounding: toSignificantRounding[rounding],
-    });
-    const quotient = new Decimal(this.numerator.toString())
-      .div(this.denominator.toString())
-      .toSignificantDigits(significantDigits);
-    return quotient.toFormat(quotient.decimalPlaces(), format);
+    const quotient = Number(this.numerator) / Number(this.denominator);
+    
+    if (quotient === 0) return '0';
+    
+    // Calculate the magnitude of the number
+    const magnitude = Math.floor(Math.log10(Math.abs(quotient)));
+    
+    // For numbers >= 1, round to maintain significant digits
+    if (quotient >= 1) {
+      const factor = Math.pow(10, significantDigits - magnitude - 1);
+      const rounded = Math.floor(quotient * factor) / factor;
+      return rounded.toString();
+    }
+    
+    // For numbers < 1, handle decimal places more carefully
+    const decimalPlaces = Math.max(0, significantDigits - magnitude - 1);
+    let result = quotient.toFixed(decimalPlaces);
+    
+    // Remove trailing zeros after decimal point but keep significant figures
+    if (result.includes('.')) {
+      // Count significant digits in the result
+      const digits = result.replace(/^0*\.?0*/, '').replace('.', '');
+      if (digits.length > significantDigits) {
+        // Truncate to significant digits
+        const truncated = digits.substring(0, significantDigits);
+        const leadingZeros = result.match(/^0*\.?(0*)/)?.[1]?.length || 0;
+        result = '0.' + '0'.repeat(leadingZeros) + truncated;
+      }
+      // Remove trailing zeros
+      result = result.replace(/0+$/, '').replace(/\.$/, '');
+    }
+    
+    return result;
   }
 
-  public toFixed(
-    decimalPlaces: number,
-    format: object = { groupSeparator: '' },
-    rounding: Rounding = Rounding.ROUND_HALF_UP
-  ): string {
+  public toFixed(decimalPlaces: number): string {
     invariant(
       Number.isInteger(decimalPlaces),
       `${decimalPlaces} is not an integer.`
     );
     invariant(decimalPlaces >= 0, `${decimalPlaces} is negative.`);
 
-    Big.DP = decimalPlaces;
-    Big.RM = toFixedRounding[rounding];
-    return new Big(this.numerator.toString())
-      .div(this.denominator.toString())
-      .toFormat(decimalPlaces, format);
+    const quotient = Number(this.numerator) / Number(this.denominator);
+    return quotient.toFixed(decimalPlaces);
   }
 
   /**

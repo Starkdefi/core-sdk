@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant';
-import { BigNumberish, Rounding } from '../../constants';
+import { BigNumberish } from '../../constants';
 import { Currency } from '../currency';
 import { Fraction } from './fraction';
 import { TokenAmount } from './tokenAmount';
@@ -104,22 +104,16 @@ export class Price<
   }
 
   public toSignificant(
-    significantDigits: number = 6,
-    format?: object,
-    rounding?: Rounding
+    significantDigits: number = 6
   ): string {
     return this.adjustedForDecimals.toSignificant(
-      significantDigits,
-      format,
-      rounding
+      significantDigits
     );
   }
 
   public toFixed(
-    decimalPlaces: number = 4,
-    format?: object,
-    rounding?: Rounding
+    decimalPlaces: number = 4
   ): string {
-    return this.adjustedForDecimals.toFixed(decimalPlaces, format, rounding);
+    return this.adjustedForDecimals.toFixed(decimalPlaces);
   }
 }

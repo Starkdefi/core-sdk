@@ -1,4 +1,4 @@
-import { BigNumberish, Rounding } from '../../constants';
+import { BigNumberish } from '../../constants';
 import { Fraction } from './fraction';
 
 const ONE_HUNDRED = new Fraction(BigInt(100));
@@ -35,19 +35,15 @@ export class Percent extends Fraction {
 
   public toSignificant(
     significantDigits: number = 5,
-    format?: object,
-    rounding?: Rounding
   ): string {
     return super
       .multiply(ONE_HUNDRED)
-      .toSignificant(significantDigits, format, rounding);
+      .toSignificant(significantDigits);
   }
 
   public toFixed(
     decimalPlaces: number = 2,
-    format?: object,
-    rounding?: Rounding
   ): string {
-    return super.multiply(ONE_HUNDRED).toFixed(decimalPlaces, format, rounding);
+    return super.multiply(ONE_HUNDRED).toFixed(decimalPlaces);
   }
 }

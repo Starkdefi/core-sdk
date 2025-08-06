@@ -1,4 +1,4 @@
-import { constants } from 'starknet';
+import { mainnet, sepolia } from '@starknet-react/chains';
 import { Ether } from './ether';
 
 describe('Ether', () => {
@@ -9,30 +9,30 @@ describe('Ether', () => {
   //   ).toEqual(true);
   // });
   it('static constructor uses cache', () => {
-    const etherMain = Ether.onChain(constants.StarknetChainId.SN_MAIN);
+    const etherMain = Ether.onChain(mainnet);
     expect(
       Number.isNaN(etherMain)
         ? false
-        : etherMain === Ether.onChain(constants.StarknetChainId.SN_MAIN)
+        : etherMain === Ether.onChain(mainnet)
     ).toEqual(true);
   });
   it('caches once per chain ID', () => {
     expect(
-      Ether.onChain(constants.StarknetChainId.SN_MAIN) !==
-        Ether.onChain(constants.StarknetChainId.SN_SEPOLIA)
+      Ether.onChain(mainnet) !==
+        Ether.onChain(sepolia)
     ).toEqual(true);
   });
   it('#equals returns false for diff chains', () => {
     expect(
-      Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(
-        Ether.onChain(constants.StarknetChainId.SN_SEPOLIA)
+      Ether.onChain(mainnet).equals(
+        Ether.onChain(sepolia)
       )
     ).toEqual(false);
   });
   it('#equals returns true for same chains', () => {
     expect(
-      Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(
-        Ether.onChain(constants.StarknetChainId.SN_MAIN)
+      Ether.onChain(mainnet).equals(
+        Ether.onChain(mainnet)
       )
     ).toEqual(true);
   });

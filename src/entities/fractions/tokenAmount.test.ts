@@ -3,7 +3,7 @@ import { Ether } from '../ether';
 import { Token } from '../token';
 import { TokenAmount } from './tokenAmount';
 import { Percent } from './percent';
-import { constants } from 'starknet';
+import { mainnet } from '@starknet-react/chains';
 
 describe('TokenAmount', () => {
   const ADDRESS_ONE =
@@ -12,7 +12,7 @@ describe('TokenAmount', () => {
   describe('constructor', () => {
     it('works', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );
@@ -24,7 +24,7 @@ describe('TokenAmount', () => {
   describe('#quotient', () => {
     it('returns the amount after multiplication', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );
@@ -38,19 +38,19 @@ describe('TokenAmount', () => {
   describe('#ether', () => {
     it('produces ether amount', () => {
       const amount = TokenAmount.fromRawAmount(
-        Ether.onChain(constants.StarknetChainId.SN_MAIN),
+        Ether.onChain(mainnet),
         100
       );
       expect(amount.quotient).toEqual(BigInt(100));
       expect(amount.token).toEqual(
-        Ether.onChain(constants.StarknetChainId.SN_MAIN)
+        Ether.onChain(mainnet)
       );
     });
   });
 
   it('token amount can be max uint256', () => {
     const amount = TokenAmount.fromRawAmount(
-      new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18),
+      new Token(mainnet, ADDRESS_ONE, 18),
       MaxUint256
     );
     expect(amount.quotient === MaxUint256).toBeTruthy();
@@ -58,7 +58,7 @@ describe('TokenAmount', () => {
   it('token amount cannot exceed max uint256', () => {
     expect(() =>
       TokenAmount.fromRawAmount(
-        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18),
+        new Token(mainnet, ADDRESS_ONE, 18),
         MaxUint256 + BigInt(1)
       )
     ).toThrow('AMOUNT');
@@ -66,7 +66,7 @@ describe('TokenAmount', () => {
   it('token amount quotient cannot exceed max uint256', () => {
     expect(() =>
       TokenAmount.fromFractionalAmount(
-        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18),
+        new Token(mainnet, ADDRESS_ONE, 18),
         MaxUint256 * BigInt(2) + BigInt(2),
         BigInt(2)
       )
@@ -74,7 +74,7 @@ describe('TokenAmount', () => {
   });
   it('token amount numerator can be gt. uint256 if denominator is gt. 1', () => {
     const amount = TokenAmount.fromFractionalAmount(
-      new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18),
+      new Token(mainnet, ADDRESS_ONE, 18),
       MaxUint256 + BigInt(2),
       2
     );
@@ -84,7 +84,7 @@ describe('TokenAmount', () => {
   describe('#toFixed', () => {
     it('throws for decimals > currency.decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -93,7 +93,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 0 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -102,7 +102,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 18 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );
@@ -114,7 +114,7 @@ describe('TokenAmount', () => {
   describe('#toSignificant', () => {
     it('does not throw for sig figs > currency.decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -123,7 +123,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 0 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -132,7 +132,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 18 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );
@@ -144,7 +144,7 @@ describe('TokenAmount', () => {
   describe('#toExact', () => {
     it('does not throw for sig figs > currency.decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -153,7 +153,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 0 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         0
       );
@@ -162,7 +162,7 @@ describe('TokenAmount', () => {
     });
     it('is correct for 18 decimals', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );

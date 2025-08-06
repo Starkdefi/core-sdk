@@ -1,12 +1,8 @@
 import invariant from 'tiny-invariant';
 import { Token } from '../token';
 import { Fraction } from './fraction';
-import _Big from 'big.js';
-import toFormat from 'toformat';
-import { BigNumberish, Rounding, MaxUint256 } from '../../constants';
+import { BigNumberish, MaxUint256 } from '../../constants';
 import { Currency } from '../currency';
-
-const Big = toFormat(_Big);
 
 export class TokenAmount<T extends Currency> extends Fraction {
   public readonly token: T;
@@ -88,31 +84,32 @@ export class TokenAmount<T extends Currency> extends Fraction {
   }
 
   public toSignificant(
-    significantDigits: number = 6,
-    format?: object,
-    rounding: Rounding = Rounding.ROUND_DOWN
+    significantDigits: number = 6
   ): string {
     return super
       .divide(this.decimalScale)
-      .toSignificant(significantDigits, format, rounding);
+      .toSignificant(significantDigits);
   }
 
   public toFixed(
-    decimalPlaces: number = this.token.decimals,
-    format?: object,
-    rounding: Rounding = Rounding.ROUND_DOWN
+    decimalPlaces: number = this.token.decimals
   ): string {
     invariant(decimalPlaces <= this.token.decimals, 'DECIMALS');
     return super
       .divide(this.decimalScale)
-      .toFixed(decimalPlaces, format, rounding);
+      .toFixed(decimalPlaces);
   }
 
-  public toExact(format: object = { groupSeparator: '' }): string {
-    Big.DP = this.token.decimals;
-    return new Big(this.quotient.toString())
-      .div(this.decimalScale.toString())
-      .toFormat(format);
+  public toExact(): string {
+    const value = Number(this.quotient) / Number(this.decimalScale);
+    let result = value.toFixed(this.token.decimals);
+    
+    // Remove trailing zeros after decimal point
+    if (result.includes('.')) {
+      result = result.replace(/\.?0+$/, '');
+    }
+    
+    return result;
   }
 
   public get wrapped(): TokenAmount<Token> {

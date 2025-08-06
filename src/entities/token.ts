@@ -1,8 +1,9 @@
 import invariant from 'tiny-invariant';
-import { constants, validateAndParseAddress } from 'starknet';
+import { validateAndParseAddress } from 'starknet';
 import { BaseToken } from './baseToken';
 import { Currency } from './currency';
-import { checkValidAddress } from '../utils';
+import { checkValidAddress } from '../utils/checkValidAddress';
+import { Chain } from '@starknet-react/chains';
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
@@ -18,7 +19,7 @@ export class Token extends BaseToken {
 
   /**
    *
-   * @param chainId {@link BaseCurrency#chainId}
+   * @param chain {@link BaseCurrency#chain}
    * @param address The contract address on the chain on which this token lives
    * @param decimals {@link BaseCurrency#decimals}
    * @param symbol {@link BaseCurrency#symbol}
@@ -26,14 +27,14 @@ export class Token extends BaseToken {
    * @param bypassChecksum If true it only checks for length === 66, startsWith 0x and contains only hex characters
    */
   public constructor(
-    chainId: constants.StarknetChainId,
+    chain: Chain,
     address: string,
     decimals: number,
     symbol?: string,
     name?: string,
     bypassChecksum?: boolean
   ) {
-    super(chainId, decimals, symbol, name);
+    super(chain, decimals, symbol, name);
     if (bypassChecksum) {
       this.address = checkValidAddress(address);
     } else {
@@ -48,7 +49,7 @@ export class Token extends BaseToken {
   public equals(other: Currency): boolean {
     return (
       other.isToken &&
-      this.chainId === other.chainId &&
+      this.chain === other.chain &&
       this.address === other.address
     );
   }
@@ -60,7 +61,7 @@ export class Token extends BaseToken {
    * @throws if the tokens are on different chains
    */
   public sortsBefore(other: Token): boolean {
-    invariant(this.chainId === other.chainId, 'CHAIN_IDS');
+    invariant(this.chain === other.chain, 'CHAIN_IDS');
     invariant(this.address !== other.address, 'ADDRESSES');
     return this.address.toLowerCase() < other.address.toLowerCase();
   }

@@ -1,4 +1,4 @@
-import { constants } from 'starknet';
+import { mainnet } from '@starknet-react/chains';
 import { Ether, Token } from './index';
 
 describe('Currency', () => {
@@ -7,20 +7,20 @@ describe('Currency', () => {
   const ADDRESS_ONE =
     '0x0000000000000000000000000000000000000000000000000000000000000001';
 
-  const t0 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ZERO, 18);
-  const t1 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18);
+  const t0 = new Token(mainnet, ADDRESS_ZERO, 18);
+  const t1 = new Token(mainnet, ADDRESS_ONE, 18);
 
   describe('#equals', () => {
     it('ether on same chains is ether', () => {
       expect(
-        Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(
-          Ether.onChain(constants.StarknetChainId.SN_MAIN)
+        Ether.onChain(mainnet).equals(
+          Ether.onChain(mainnet)
         )
       );
     });
     it('ether is not token0', () => {
       expect(
-        Ether.onChain(constants.StarknetChainId.SN_MAIN).equals(t0)
+        Ether.onChain(mainnet).equals(t0)
       ).toStrictEqual(false);
     });
     it('token1 is not token0', () => {
@@ -33,7 +33,7 @@ describe('Currency', () => {
       expect(
         t0.equals(
           new Token(
-            constants.StarknetChainId.SN_MAIN,
+            mainnet,
             ADDRESS_ZERO,
             18,
             'symbol',

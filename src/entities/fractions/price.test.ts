@@ -1,7 +1,7 @@
 import { Token } from '../index';
 import { TokenAmount } from './tokenAmount';
 import { Price } from './price';
-import { constants } from 'starknet';
+import { mainnet } from '@starknet-react/chains';
 
 describe('Price', () => {
   const ADDRESS_ZERO =
@@ -9,9 +9,9 @@ describe('Price', () => {
   const ADDRESS_ONE =
     '0x0000000000000000000000000000000000000000000000000000000000000001';
 
-  const t0 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ZERO, 18);
-  const t0_6 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ZERO, 6);
-  const t1 = new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18);
+  const t0 = new Token(mainnet, ADDRESS_ZERO, 18);
+  const t0_6 = new Token(mainnet, ADDRESS_ZERO, 6);
+  const t1 = new Token(mainnet, ADDRESS_ONE, 18);
 
   describe('#constructor', () => {
     it('array format works', () => {

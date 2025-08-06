@@ -1,4 +1,4 @@
-import { constants } from 'starknet';
+import { mainnet, sepolia } from '@starknet-react/chains';
 import { Token } from './index';
 
 describe('Token', () => {
@@ -12,7 +12,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            constants.StarknetChainId.SN_SEPOLIA,
+            sepolia,
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18
           ).address
@@ -21,21 +21,21 @@ describe('Token', () => {
     it('fails with negative decimals', () => {
       expect(
         () =>
-          new Token(constants.StarknetChainId.SN_SEPOLIA, ADDRESS_ONE, -1)
+          new Token(sepolia, ADDRESS_ONE, -1)
             .address
       ).toThrow('DECIMALS');
     });
     it('fails with 256 decimals', () => {
       expect(
         () =>
-          new Token(constants.StarknetChainId.SN_SEPOLIA, ADDRESS_ONE, 256)
+          new Token(sepolia, ADDRESS_ONE, 256)
             .address
       ).toThrow('DECIMALS');
     });
     it('fails with non-integer decimals', () => {
       expect(
         () =>
-          new Token(constants.StarknetChainId.SN_SEPOLIA, ADDRESS_ONE, 1.5)
+          new Token(sepolia, ADDRESS_ONE, 1.5)
             .address
       ).toThrow('DECIMALS');
     });
@@ -47,7 +47,7 @@ describe('Token', () => {
     it('creates the token with a valid address', () => {
       expect(
         new Token(
-          constants.StarknetChainId.SN_SEPOLIA,
+          sepolia,
           ADDRESS_TWO,
           18,
           undefined,
@@ -60,7 +60,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            constants.StarknetChainId.SN_SEPOLIA,
+            sepolia,
             '0xhello00000000000000000000000000000000000000000000000000000000002',
             18,
             undefined,
@@ -73,7 +73,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            constants.StarknetChainId.SN_SEPOLIA,
+            sepolia,
             ADDRESS_ONE,
             -1,
             undefined,
@@ -86,7 +86,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            constants.StarknetChainId.SN_SEPOLIA,
+            sepolia,
             ADDRESS_ONE,
             256,
             undefined,
@@ -99,7 +99,7 @@ describe('Token', () => {
       expect(
         () =>
           new Token(
-            constants.StarknetChainId.SN_SEPOLIA,
+            sepolia,
             ADDRESS_ONE,
             1.5,
             undefined,
@@ -113,39 +113,39 @@ describe('Token', () => {
   describe('#equals', () => {
     it('fails if address differs', () => {
       expect(
-        new Token(constants.StarknetChainId.SN_SEPOLIA, ADDRESS_ONE, 18).equals(
-          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_TWO, 18)
-        )
+              new Token(sepolia, ADDRESS_ONE, 18).equals(
+        new Token(mainnet, ADDRESS_TWO, 18)
+      )
       ).toBe(false);
     });
 
     it('false if chain id differs', () => {
       expect(
-        new Token(constants.StarknetChainId.SN_SEPOLIA, ADDRESS_ONE, 18).equals(
-          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
-        )
+              new Token(sepolia, ADDRESS_ONE, 18).equals(
+        new Token(mainnet, ADDRESS_ONE, 18)
+      )
       ).toBe(false);
     });
 
     it('true if only decimals differs', () => {
       expect(
-        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 9).equals(
-          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
-        )
+              new Token(mainnet, ADDRESS_ONE, 9).equals(
+        new Token(mainnet, ADDRESS_ONE, 18)
+      )
       ).toBe(true);
     });
 
     it('true if address is the same', () => {
       expect(
-        new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18).equals(
-          new Token(constants.StarknetChainId.SN_MAIN, ADDRESS_ONE, 18)
-        )
+              new Token(mainnet, ADDRESS_ONE, 18).equals(
+        new Token(mainnet, ADDRESS_ONE, 18)
+      )
       ).toBe(true);
     });
 
     it('true on reference equality', () => {
       const token = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18
       );
@@ -154,14 +154,14 @@ describe('Token', () => {
 
     it('true even if name/symbol/decimals differ', () => {
       const tokenA = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         9,
         'abc',
         'def'
       );
       const tokenB = new Token(
-        constants.StarknetChainId.SN_MAIN,
+        mainnet,
         ADDRESS_ONE,
         18,
         'ghi',
